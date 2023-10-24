@@ -21,5 +21,7 @@ services:
     image: postgres:13-alpine
     volumes:
       - ./data/postgres/data:/var/lib/postgresql/data/
+    ports:
+      - 5432:5432
     env_file:
       - ./dotenv_files/.env

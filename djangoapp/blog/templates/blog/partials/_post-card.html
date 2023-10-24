@@ -1,16 +1,15 @@
 <article class="card">
-  
   {% if post.cover %}
-    <div class="card-cover-wrapper">
-      <a href="{{ post.get_absolute_url }}" class="card-cover-link">
-        <img 
-          class="card-cover"
-          loading="lazy"
-          src="{{ post.cover.url }}" 
-          alt="Cover do post {{ post.title }}"
-        >
-      </a>
-    </div>
+  <div class="card-cover-wrapper">
+    <a href="{{ post.get_absolute_url }}" class="card-cover-link">
+      <img
+        class="card-cover"
+        loading="lazy"
+        src="{{ post.cover.url }}"
+        alt="Cover do post {{ post.title }}"
+      />
+    </a>
+  </div>
   {% endif %}
 
   <div class="card-text-wrapper">
@@ -23,9 +22,7 @@
     </div>
 
     <div class="card-content-wrapper">
-      <p class="card-content">
-        {{ post.excerpt }} 
-      </p>
+      <p class="card-content">{{ post.excerpt }}</p>
 
       <div class="card-actions">
         <a class="card-action-link" href="{{ post.get_absolute_url }}">
@@ -35,5 +32,4 @@
       </div>
     </div>
   </div>
-
 </article>
