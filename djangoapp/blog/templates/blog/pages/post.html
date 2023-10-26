@@ -3,9 +3,9 @@
   <div class="single-post-content section-content-narrow">
     <div class="single-post-gap section-gap">
       {% if post.cover and post.cover_in_post_content %}
-      <div class="single-post-cover pb-base">
-        <img loading="lazy" src="{{ post.cover.url }}" alt="{{ post.title }}" />
-      </div>
+        <div class="single-post-cover pb-base">
+          <img loading="lazy" src="{{ post.cover.url }}" alt="{{ post.title }}" />
+        </div>
       {% endif %}
 
       <h2 class="single-post-title pb-base center">{{ post.title }}</h2>
@@ -18,29 +18,31 @@
           >
             <i class="fa-solid fa-user"></i>
             <span>
-              {% if post.created_by.first_name %} {{ post.created_by.first_name
-              }} {{ post.created_by.last_name }} {% else %} {{
-              post.created_by.username }} {% endif %}
+              {% if post.created_by.first_name %} 
+                {{ post.created_by.first_name}} {{ post.created_by.last_name }} 
+              {% else %} 
+                {{ post.created_by.username }} 
+              {% endif %}
             </span>
           </a>
         </div>
         <div class="post-meta-item">
           <span class="post-meta-link">
             <i class="fa-solid fa-calendar-days"></i>
-            <span> 20/04/2023 </span>
+            <span> {{ post.created_at | date:'d/m/Y \á\s H:i' }} </span>
           </span>
         </div>
 
         {% if post.category %}
-        <div class="post-meta-item">
-          <a
-            class="post-meta-link"
-            href="{% url 'blog:category' post.category.slug  %}"
-          >
-            <i class="fa-solid fa-tag"></i>
-            <span> {{ post.category.name }} </span>
-          </a>
-        </div>
+          <div class="post-meta-item">
+            <a
+              class="post-meta-link"
+              href="{% url 'blog:category' post.category.slug  %}"
+            >
+              <i class="fa-solid fa-tag"></i>
+              <span> {{ post.category.name }} </span>
+            </a>
+          </div>
         {% endif %}
       </div>
 
