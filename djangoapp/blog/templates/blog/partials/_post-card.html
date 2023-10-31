@@ -22,7 +22,7 @@
     </div>
 
     <div class="card-content-wrapper">
-      <p class="card-content">{{ post.excerpt }}</p>
+      <p class="card-content">{{ post.excerpt | safe }}</p>
 
       <div class="card-actions">
         <a class="card-action-link" href="{{ post.get_absolute_url }}">
