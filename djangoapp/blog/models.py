@@ -44,7 +44,7 @@ class Tag(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self) -> str:
-        return self.name
+        return str(self.name)
 
 
 class Category(models.Model):
@@ -67,7 +67,7 @@ class Category(models.Model):
         return super().save(*args, **kwargs)
 
     def __str__(self) -> str:
-        return self.name
+        return str(self.name)
 
 
 class Page(models.Model):
