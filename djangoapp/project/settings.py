@@ -12,10 +12,14 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 import os
 from pathlib import Path
 
+from dotenv import load_dotenv
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 DATA_DIR = BASE_DIR.parent / "data" / "web"
 
+# DOTENV
+load_dotenv(BASE_DIR.parent / "dotenv_files" / ".env", override=True)
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
@@ -40,13 +44,13 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
     # Meus apps
     "blog",
     "site_setup",
-
     # Summernote
     "django_summernote",
+    # Axes
+    "axes",
 ]
 
 MIDDLEWARE = [
@@ -57,6 +61,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "axes.middleware.AxesMiddleware",
 ]
 
 ROOT_URLCONF = "project.urls"
@@ -114,6 +119,13 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+AUTHENTICATION_BACKENDS = [
+    # AxesStandaloneBackend should be the first backend in the AUTHENTICATION_BACKENDS
+    "axes.backends.AxesStandaloneBackend",
+    # Django ModelBackend is the default authentication backend
+    "django.contrib.auth.backends.ModelBackend",
+]
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
@@ -142,28 +154,46 @@ MEDIA_ROOT = DATA_DIR / "media"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 SUMMERNOTE_CONFIG = {
-    'summernote': {
+    "summernote": {
         # Toolbar customization
         # https://summernote.org/deep-dive/#custom-toolbar-popover
-        'toolbar': [
-            ['style', ['style', ]],
-            ['font', ['bold', 'italic', 'clear']],
-            ['color', ['color']],
-            ['para', ['ul', 'ol', 'paragraph', 'hr', ]],
-            ['table', ['table']],
-            ['insert', ['link', 'picture']],
-            ['view', ['fullscreen', 'codeview', 'undo', 'redo']],
+        "toolbar": [
+            [
+                "style",
+                [
+                    "style",
+                ],
+            ],
+            ["font", ["bold", "italic", "clear"]],
+            ["color", ["color"]],
+            [
+                "para",
+                [
+                    "ul",
+                    "ol",
+                    "paragraph",
+                    "hr",
+                ],
+            ],
+            ["table", ["table"]],
+            ["insert", ["link", "picture"]],
+            ["view", ["fullscreen", "codeview", "undo", "redo"]],
         ],
-        'codemirror': {
-            'mode': 'htmlmixed',
-            'lineNumbers': 'true',
-            'lineWrapping': 'true',
-            'theme': 'dracula',
+        "codemirror": {
+            "mode": "htmlmixed",
+            "lineNumbers": "true",
+            "lineWrapping": "true",
+            "theme": "dracula",
         },
     },
-    'css': (
-        '//cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css',
+    "css": (
+        "//cdnjs.cloudflare.com/ajax/libs/codemirror/6.65.7/theme/dracula.min.css",
     ),
-    'attachment_filesize_limit': 30 * 1024 * 1024,
-    'attachment_model': 'blog.PostAttachment',
+    "attachment_filesize_limit": 30 * 1024 * 1024,
+    "attachment_model": "blog.PostAttachment",
 }
+
+AXES_ENABLED = True
+AXES_FAILURE_LIMIT = 6
+AXES_COOLOFF_TIME = 1  # 1 HORA
+AXES_RESET_ON_SUCCESS = True
