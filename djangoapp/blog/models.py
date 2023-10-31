@@ -160,7 +160,7 @@ class Post(models.Model):
     tags = models.ManyToManyField(Tag, blank=True, default="")
 
     def __str__(self):
-        return self.title
+        return str(self.title)
 
     def get_absolute_url(self):
         if not self.is_published:
